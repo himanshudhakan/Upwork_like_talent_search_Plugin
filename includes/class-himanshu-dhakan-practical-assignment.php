@@ -109,11 +109,6 @@ class Himanshu_Dhakan_Practical_Assignment {
 		include_once HDPA_INC_DIR_PATH . 'class-hdpa-init.php';
 
 		/**
-		 * The class responsible for defining all actions that occur in the admin area.
-		 */
-		include_once HDPA_ADMIN_DIR_PATH . 'class-hdpa-admin.php';
-
-		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the plugin.
 		 */
@@ -124,15 +119,26 @@ class Himanshu_Dhakan_Practical_Assignment {
 		 */
 		include_once HDPA_PUBLIC_DIR_PATH . 'class-hdpa-shortcodes.php';
 
+
+		if ( is_admin() ) {
+
+			/**
+			 * The class responsible for defining all actions that occur in the admin area.
+			 */
+			include_once HDPA_ADMIN_DIR_PATH . 'class-hdpa-admin.php';
+
+			$hdpa_admin = new Hdpa_Admin( $this->plugin_name, $this->version );
+			$this->classes['admin'] = $hdpa_admin;
+			
+		}
+
 		$hdpa_i18n       = new Hdpa_I18n();
 		$hdpa_init       = new Hdpa_Init();
-		$hdpa_admin      = new Hdpa_Admin( $this->plugin_name, $this->version );
 		$hdpa_public     = new Hdpa_Public( $this->plugin_name, $this->version );
 		$hdpa_shortcodes = new Hdpa_Shortcodes( $this->plugin_name, $this->version );
 
 		$this->classes['i18n']       = $hdpa_i18n;
 		$this->classes['init']       = $hdpa_init;
-		$this->classes['admin']      = $hdpa_admin;
 		$this->classes['public']     = $hdpa_public;
 		$this->classes['shortcodes'] = $hdpa_shortcodes;
 

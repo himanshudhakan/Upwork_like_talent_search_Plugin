@@ -39,8 +39,8 @@ class Hdpa_Init {
 			'all_items'          => __( 'All Profiles', 'hdpa' ),
 			'search_items'       => __( 'Search Profiles', 'hdpa' ),
 			'parent_item_colon'  => __( 'Parent Profiles:', 'hdpa' ),
-			'not_found'          => __( 'No directories found.', 'hdpa' ),
-			'not_found_in_trash' => __( 'No directories found in Trash.', 'hdpa' ),
+			'not_found'          => __( 'No profiles found.', 'hdpa' ),
+			'not_found_in_trash' => __( 'No profiles found in Trash.', 'hdpa' ),
 		);
 
 		$args = array(

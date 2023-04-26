@@ -15,7 +15,7 @@
  * Author URI:        https://github.com/himanshudhakan
  * License:           GPLv3
  * License URI:       http://www.gnu.org/licenses/gpl-3.0.html
- * Text Domain:       himanshu-dhakan-practical-assignment
+ * Text Domain:       hdpa
  * Domain Path:       /languages
  */
 
@@ -75,14 +75,14 @@ define( 'HDPA_PUBLIC_DIR_URL', HDPA_PLUGIN_DIR_URL . 'public/' );
 define( 'HDPA_PUBLIC_TEMPLATE_PATH', HDPA_PUBLIC_DIR_PATH . 'partials/' );
 
 /**
- * Libls dir path.
+ * Assets dir path.
  */
-define( 'HDPA_LIBS_DIR_PATH', HDPA_PLUGIN_DIR_PATH . 'libs/' );
+define( 'HDPA_ASSE_DIR_PATH', HDPA_PLUGIN_DIR_PATH . 'assets/' );
 
 /**
- * Libls dir url.
+ * Assets dir url.
  */
-define( 'HDPA_LIBS_DIR_URL', HDPA_PLUGIN_DIR_URL . 'libs/' );
+define( 'HDPA_ASSE_DIR_URL', HDPA_PLUGIN_DIR_URL . 'assets/' );
 
 /**
  * The code that runs during plugin activation.
