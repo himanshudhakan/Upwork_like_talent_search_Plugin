@@ -57,8 +57,8 @@ class Hdpa_Admin {
 	 */
 	public function __construct( $plugin_name, $version ) {
 
-		$this->plugin_name = $plugin_name;
-		$this->version     = $version;
+		$this->plugin_name        = $plugin_name;
+		$this->version            = $version;
 		$this->allowed_post_types = array(
 			'profile',
 		);
@@ -74,7 +74,7 @@ class Hdpa_Admin {
 	public function hdpa_enqueue_scripts( $hook_suffix ) {
 
 		$post_type = get_post_type();
-		wp_register_script( 'hdpa-admin-script', HDPA_ADMIN_DIR_URL . 'js/hdpa-admin.js', array( 'jquery'), HDPA_VERSION, true );
+		wp_register_script( 'hdpa-admin-script', HDPA_ADMIN_DIR_URL . 'js/hdpa-admin.js', array( 'jquery' ), HDPA_VERSION, true );
 		wp_register_style( 'hdpa-jquery-ui', HDPA_ASSE_DIR_URL . 'libs/css/jquery-ui.css', array(), HDPA_VERSION );
 
 		if ( in_array( $post_type, $this->allowed_post_types, true ) ) {
@@ -100,7 +100,7 @@ class Hdpa_Admin {
 	 */
 	public function hdpa_add_meta_boxes( $post_type ) {
 
-		if ( 'profile' == $post_type ) {
+		if ( 'profile' === $post_type ) {
 			add_meta_box(
 				'hdpa_add_info',
 				__( 'Additional information', 'hdpa' ),
@@ -141,7 +141,7 @@ class Hdpa_Admin {
 			return;
 		}
 
-		$nonce = sanitize_text_field( $_POST['hdpa_profile_meta_nonce'] );
+		$nonce = hdpa_sanitize_text_field( $_POST['hdpa_profile_meta_nonce'] );
 		if ( ! wp_verify_nonce( $nonce, 'hdpa_profile_meta' ) ) {
 			return;
 		}
@@ -151,10 +151,14 @@ class Hdpa_Admin {
 		}
 
 		if ( isset( $_POST['profile_additional_data'] ) ) {
+
 			$data = hdpa_sanitize_text_field( $_POST['profile_additional_data'] );
-			update_post_meta($profile_id, 'profile_additional_data', $data);			
+
+			foreach ( $data as $dkey => $value ) {
+				$meta_key = sprintf( 'profile_%s', $dkey );
+				update_post_meta( $profile_id, $meta_key, $value );
+			}
 		}
-		
 
 	}
 

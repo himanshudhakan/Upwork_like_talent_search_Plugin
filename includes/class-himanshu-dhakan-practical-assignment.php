@@ -119,7 +119,6 @@ class Himanshu_Dhakan_Practical_Assignment {
 		 */
 		include_once HDPA_PUBLIC_DIR_PATH . 'class-hdpa-shortcodes.php';
 
-
 		if ( is_admin() ) {
 
 			/**
@@ -127,9 +126,9 @@ class Himanshu_Dhakan_Practical_Assignment {
 			 */
 			include_once HDPA_ADMIN_DIR_PATH . 'class-hdpa-admin.php';
 
-			$hdpa_admin = new Hdpa_Admin( $this->plugin_name, $this->version );
+			$hdpa_admin             = new Hdpa_Admin( $this->plugin_name, $this->version );
 			$this->classes['admin'] = $hdpa_admin;
-			
+
 		}
 
 		$hdpa_i18n       = new Hdpa_I18n();

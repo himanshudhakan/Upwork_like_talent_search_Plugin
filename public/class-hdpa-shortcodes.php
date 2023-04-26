@@ -52,11 +52,28 @@ class Hdpa_Shortcodes {
 	}
 
 	/**
+	 * Display the data to the front side.
+	 *
+	 * @since 1.0.0
+	 */
+	public function hdap_display_data_shortcode() {
+
+		ob_start();
+
+		include HDPA_PUBLIC_TEMPLATE_PATH . 'hdpa-profiles-list.php';
+
+		return ob_get_clean();
+
+	}
+
+	/**
 	 * Add all hooks
 	 *
 	 * @since 1.0.0
 	 */
 	public function add_hooks() {
+
+		add_shortcode( 'hdpa_profiles_list', array( $this, 'hdap_display_data_shortcode' ) );
 
 	}
 

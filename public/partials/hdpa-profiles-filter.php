@@ -1,8 +1,6 @@
 <?php
 /**
- * Provide a public-facing view for the plugin
- *
- * This file is used to markup the public-facing aspects of the plugin.
+ * Provide a view of the profile list filter
  *
  * @link  https://github.com/himanshudhakan
  * @since 1.0.0
@@ -11,4 +9,4 @@
  * @subpackage Himanshu_Dhakan_Practical_Assignment/public/partials
  */
 
-?>
+
