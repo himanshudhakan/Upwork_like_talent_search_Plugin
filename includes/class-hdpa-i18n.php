@@ -25,8 +25,6 @@
  */
 class Hdpa_I18n {
 
-
-
 	/**
 	 * Load the plugin text domain for translation.
 	 *
@@ -35,7 +33,7 @@ class Hdpa_I18n {
 	public function load_plugin_textdomain() {
 
 		load_plugin_textdomain(
-			'himanshu-dhakan-practical-assignment',
+			'hdpa',
 			false,
 			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
 		);
