@@ -75,3 +75,19 @@ function hdpa_get_profile_meta_data( $id ) {
 
 	return $data;
 }
+
+/**
+ * Get age of profile.
+ *
+ * @since  1.0.0
+ * @param  string $dob The dob of profile.
+ * @return int $age The age of profile.
+ */
+function hdpa_get_age_of_profile( $dob ){
+
+	$from = new DateTime($dob);
+	$to   = new DateTime('today');
+	$age  = $from->diff($to)->y;
+
+	return $age;
+}

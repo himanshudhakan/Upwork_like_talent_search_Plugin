@@ -11,7 +11,7 @@
 
 ?>
 
-<table>
+<table class="hdpa-profile-table">
 	<thead>
 		<tr>
 			<th><?php esc_html_e( 'No.', 'hdpa' ); ?></th>

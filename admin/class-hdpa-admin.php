@@ -73,10 +73,16 @@ class Hdpa_Admin {
 	 */
 	public function hdpa_enqueue_scripts( $hook_suffix ) {
 
+		// Current post type
 		$post_type = get_post_type();
-		wp_register_script( 'hdpa-admin-script', HDPA_ADMIN_DIR_URL . 'js/hdpa-admin.js', array( 'jquery' ), HDPA_VERSION, true );
-		wp_register_style( 'hdpa-jquery-ui', HDPA_ASSE_DIR_URL . 'libs/css/jquery-ui.css', array(), HDPA_VERSION );
 
+		// register the plugin admin script
+		wp_register_script( 'hdpa-admin-script', HDPA_ADMIN_DIR_URL . 'js/hdpa-admin.js', array( 'jquery' ), HDPA_VERSION, true );
+
+		// register the jquery ui style
+		wp_register_style( 'hdpa-jquery-ui', HDPA_ASSE_DIR_URL . 'css/jquery-ui/jquery-ui.css', array(), HDPA_VERSION );
+
+		// Check if current screen is of the plugin
 		if ( in_array( $post_type, $this->allowed_post_types, true ) ) {
 
 			$hdpa_admin_obj = array(
@@ -123,7 +129,7 @@ class Hdpa_Admin {
 
 		global $profile_id;
 		$profile_id = $post->ID;
-
+		
 		include HDPA_ADMIN_TEMPLATE_PATH . 'metaboxes/hdpa-metabox-profile.php';
 
 	}

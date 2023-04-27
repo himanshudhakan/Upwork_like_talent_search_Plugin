@@ -12,9 +12,9 @@
 ?>
 <div class="hdpa-profile-list-wrap">
 	<div class="hdpa-profile-list-filter">
-		<?php require HDPA_PUBLIC_DIR_PATH . 'hdpa-profiles-filter.php'; ?>
+		<?php require HDPA_PUBLIC_TEMPLATE_PATH . 'hdpa-profiles-filter.php'; ?>
 	</div>
 	<div class="hdpa-profile-list-table">
-		<?php require HDPA_PUBLIC_DIR_PATH . 'hdpa-profiles-table.php'; ?>
+		<?php require HDPA_PUBLIC_TEMPLATE_PATH . 'hdpa-profiles-table.php'; ?>
 	</div>
 </div>
