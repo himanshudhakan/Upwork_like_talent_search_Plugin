@@ -9,6 +9,10 @@
  * @subpackage Himanshu_Dhakan_Practical_Assignment/public/partials
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 ?>
 
 <table class="hdpa-profile-table">

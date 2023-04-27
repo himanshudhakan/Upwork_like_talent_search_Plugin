@@ -69,7 +69,7 @@ function hdpa_get_profile_meta_data( $id ) {
 	$data      = array();
 
 	foreach ( $data_kyes as $dkey => $key ) {
-		$meta_key     = sprintf( 'profile_%s', $key );
+		$meta_key     = sprintf( '_profile_%s', $key );
 		$data[ $key ] = get_post_meta( $id, $meta_key, true );
 	}
 

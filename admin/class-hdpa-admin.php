@@ -43,10 +43,10 @@ class Hdpa_Admin {
 	 * The array of post types to enqueue scripts.
 	 *
 	 * @since  1.0.0
-	 * @access public
+	 * @access private
 	 * @var    array    $allowed_post_types    The array of post types.
 	 */
-	public $allowed_post_types;
+	private $allowed_post_types;
 
 	/**
 	 * Initialize the class and set its properties.
@@ -161,9 +161,15 @@ class Hdpa_Admin {
 			$data = hdpa_sanitize_text_field( $_POST['profile_additional_data'] );
 
 			foreach ( $data as $dkey => $value ) {
-				$meta_key = sprintf( 'profile_%s', $dkey );
+				$meta_key = sprintf( '_profile_%s', $dkey );
 				update_post_meta( $profile_id, $meta_key, $value );
 			}
+
+			if ( ! empty( $data['dob'] ) ) {
+				$age = hdpa_get_age_of_profile( $data['dob'] );
+				update_post_meta( $profile_id, '_profile_age', $age );
+			}
+			
 		}
 
 	}

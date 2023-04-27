@@ -9,6 +9,10 @@
  * @subpackage Himanshu_Dhakan_Practical_Assignment/admin/partials
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 global $profile_id;
 $data = hdpa_get_profile_meta_data( $profile_id );
 

@@ -3,7 +3,8 @@
 
 	var ajaxurl = hdpa_public_obj.ajaxurl;
 
-	var dataTable = $('.hdpa-profile-table').DataTable({
+	// Initialize the datatable
+	var profile_dataTable = $('.hdpa-profile-table').DataTable({
 		processing: true,
 		serverSide: true,
 		serverMethod: 'post',
@@ -14,6 +15,7 @@
 		   	url: ajaxurl,
 		  	data: function(data){
 		  		data.action = 'hdpa_filter_profile';
+		  		data.filter = hdpa_get_filter_data();
 		   	}
 		},
 		columns: [
@@ -27,6 +29,36 @@
 		order: [[1, 'asc']],
 	});
 
+	// Initialize the select2
 	$('.hdpa-select').select2();
+
+	/**
+	* Get filter data
+	*
+	* @since 1.0.0
+	*
+	* @return object The filter data.
+	*/
+	function hdpa_get_filter_data(){
+
+		var filter = {};
+
+		filter.skills = $('#hdpa_filter_skills').val();
+		filter.education = $('#hdpa_filter_education').val();
+		var form_data = $('#hdpa-filter-form').serializeArray();
+		
+		$(form_data).each(function(i, field){
+			var key = field.name.replace('hdpa_filter_', '');
+			if ( ! filter.hasOwnProperty(key) ) {
+				filter[key] = field.value;
+			}
+		});
+
+		return filter;
+	}
+
+	$('.hdpa-filter-submit').click(function(e){
+		profile_dataTable.draw();
+	});
 
 })( jQuery );

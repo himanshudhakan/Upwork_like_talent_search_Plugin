@@ -173,6 +173,12 @@ class Hdpa_Public {
 			'orderby' => 'title',
 		);
 
+		if ( ! empty( $tb_data['filter'] ) ) {
+
+			$meta_args = array();
+
+		}
+
 		return $args;
 
 	}
