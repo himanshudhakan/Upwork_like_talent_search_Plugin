@@ -1,3 +1,4 @@
+/* filter style start */
 .hdpa-btn-filter{
 	font-weight: 500;
     padding: 6px 12px;
@@ -16,3 +17,56 @@
 	width: 18px;
 	vertical-align: middle;
 }
+.hdpa-filter-col {
+    display: flex;
+}
+.hdpa-col-one .hdpa-filter-field{
+    flex: 100%;
+}
+.hdpa-col-two .hdpa-filter-field{
+    flex: 50%;
+}
+.hdpa-filter-field{
+    display: flex;
+}
+.hdpa-filter-field label{
+    flex: 250px;
+}
+.hdpa-filter-field input, 
+.hdpa-filter-field select{
+    width: 100%;
+}
+/* filter style end */
+
+/* rating style start */
+.rating-group {
+    display: inline-flex;
+}
+.rating__icon {
+    pointer-events: none;
+}
+.rating__input {
+    position: absolute !important;
+    left: -9999px !important;
+}
+.rating__input--none {
+    display: none
+}
+.rating__label {
+    cursor: pointer;
+    padding: 0 0.1em;
+    font-size: 2rem;
+}
+.rating__icon--star {
+    color: orange;
+}
+.rating__input:checked ~ .rating__label .rating__icon--star {
+    color: #ddd;
+}
+.rating-group:hover .rating__label .rating__icon--star {
+    color: orange;
+}
+.rating__input:hover ~ .rating__label .rating__icon--star {
+    color: #ddd;
+}
+/* rating style end */

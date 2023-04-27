@@ -27,4 +27,6 @@
 		order: [[1, 'asc']],
 	});
 
+	$('.hdpa-select').select2();
+
 })( jQuery );

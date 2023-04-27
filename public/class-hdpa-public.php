@@ -65,6 +65,10 @@ class Hdpa_Public {
 		wp_enqueue_script( 'hdpa-datatables-script', HDPA_ASSE_DIR_URL . 'js/DataTables/jquery.dataTables.min.js', array( 'jquery' ), HDPA_VERSION, true );
 		wp_enqueue_style( 'hdpa-datatables-style', HDPA_ASSE_DIR_URL . 'css/DataTables/jquery.dataTables.min.css', array(), HDPA_VERSION );
 
+		// enqueue the datatables scripts
+		wp_enqueue_script( 'hdpa-select2-script', HDPA_ASSE_DIR_URL . 'js/select2/select2.min.js', array( 'jquery' ), HDPA_VERSION, true );
+		wp_enqueue_style( 'hdpa-select2-style', HDPA_ASSE_DIR_URL . 'css/select2/select2.min.css', array(), HDPA_VERSION );
+
 		// enqueue the plugin public script
 		wp_enqueue_script( 'hdpa-public-script', HDPA_PUBLIC_DIR_URL . 'js/hdpa-public.js', array( 'jquery' ), HDPA_VERSION, true );
 		wp_enqueue_style( 'hdpa-public-style', HDPA_PUBLIC_DIR_URL . 'css/hdpa-public.css', array(), HDPA_VERSION );
@@ -124,7 +128,7 @@ class Hdpa_Public {
 				$name = get_the_title();
 				$age = hdpa_get_age_of_profile( $meta_data['dob'] );
 				
-				$ratings = str_repeat('<span class="dashicons dashicons-star-filled"></span>', $meta_data['ratings']);
+				$ratings = str_repeat('<span class="rating__icon rating__icon--star dashicons dashicons-star-filled"></span>', $meta_data['ratings']);
 
 				$data = array(
 					'no' => $counter,
