@@ -147,6 +147,11 @@ class Hdpa_Public {
 				$profile_id = get_the_ID();
 				$meta_data = hdpa_get_profile_meta_data( $profile_id );
 				$name = get_the_title();
+				$heading = sprintf(
+					'<a class="hdpa-prfile-link" href="%s">%s</a>', 
+					esc_url( get_permalink( $profile_id ) ),
+					$name
+				);
 				$age = hdpa_get_age_of_profile( $meta_data['dob'] );
 				
 				$ratings = str_repeat('<span class="rating__icon rating__icon--star hdpa-rating__icon--star-filled dashicons dashicons-star-filled"></span>', $meta_data['ratings']);
@@ -154,7 +159,7 @@ class Hdpa_Public {
 
 				$data = array(
 					'no' => $counter,
-					'name' => $name,
+					'name' => $heading,
 					'age' => $age,
 					'experience' => $meta_data['experience'],
 					'completed_jobs' => $meta_data['completed_jobs'],
@@ -316,6 +321,5 @@ class Hdpa_Public {
 		add_action( 'wp_ajax_nopriv_hdpa_filter_profile', array( $this, 'hdpa_filter_profile_callback' ) );
 
 	}
-
 
 }

@@ -46,12 +46,7 @@ class Hdpa_Init {
 		$args = array(
 			'labels'              => $labels,
 			'public'              => true,
-			'has_archive'         => false,
-			'hierarchical'        => false,
-			'show_in_nav_menus'   => true,
 			'supports'            => array( 'title' ),
-			'publicly_queryable'  => false,
-			'exclude_from_search' => true,
 			'can_export'          => true,
 			'menu_position'       => null,
 		);
@@ -78,7 +73,7 @@ class Hdpa_Init {
 			'update_item'       => __( 'Update Skill', 'hdpa' ),
 			'add_new_item'      => __( 'Add New Skill', 'hdpa' ),
 			'new_item_name'     => __( 'New Skill Name', 'hdpa' ),
-			'menu_name'         => __( 'Skill', 'hdpa' ),
+			'menu_name'         => __( 'Skills', 'hdpa' ),
 		);
 
 		$skills_args = array(
