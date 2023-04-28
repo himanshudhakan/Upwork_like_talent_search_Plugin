@@ -1,7 +1,8 @@
 (function ( $ ) {
 	'use strict';
 
-	var ajaxurl = hdpa_public_obj.ajaxurl;
+	var ajaxurl = hdpa_public_obj.ajaxurl,
+		is_filter = false;
 
 	// Initialize the datatable
 	var profile_dataTable = $('.hdpa-profile-table').DataTable({
@@ -14,8 +15,12 @@
 		ajax: {
 		   	url: ajaxurl,
 		  	data: function(data){
+
 		  		data.action = 'hdpa_filter_profile';
-		  		data.filter = hdpa_get_filter_data();
+		  		if ( true === is_filter ) {
+		  			data.filter = hdpa_get_filter_data();
+		  		}
+
 		   	}
 		},
 		columns: [
@@ -30,7 +35,9 @@
 	});
 
 	// Initialize the select2
-	$('.hdpa-select').select2();
+	$('.hdpa-select').select2({
+		width: 'resolve',
+	});
 
 	/**
 	* Get filter data
@@ -58,7 +65,21 @@
 	}
 
 	$('.hdpa-filter-submit').click(function(e){
+		is_filter = true;
 		profile_dataTable.draw();
 	});
+
+	$(document).on('input','#hdpa_filter_age', function() {
+
+		var val = $(this).val();
+		$('.hdpa-filter-age-text').show();
+	    $('.hdpa_filter_age_to_text').html( val );
+
+	});
+
+	$('.hdpa-btn-filter').click(function(e){
+		$('.hdpa-filter-content').slideToggle();
+	});
+	
 
 })( jQuery );

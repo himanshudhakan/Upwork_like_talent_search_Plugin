@@ -25,7 +25,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 /**
- * Currently plugin version.
+ * Current plugin version.
  */
 define( 'HDPA_VERSION', '1.0.0' );
 

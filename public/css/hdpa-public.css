@@ -1,72 +1,191 @@
 /* filter style start */
+.hdpa-profile-list-filter{
+  width: 100%;
+}
+.hdpa-filter-content{
+  background: #f2f2f2;
+  padding: 5px;
+  display: none;
+}
 .hdpa-btn-filter{
 	font-weight: 500;
-    padding: 6px 12px;
-    line-height: 1.3;
-    color: #fff;
-    background-color: #007bff;
-    border-radius: 3px;
-    border: none;
-    font-size: 15px;
-   	cursor: pointer;
+  padding: 4px 7px;
+  line-height: 1.3;
+  color: #fff;
+  background-color: #007bff;
+  border-radius: 3px;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
 }
 .filter-text{
-	margin-right: 5px;
+	margin-right: 2px;
 }
 .hdpa-filter-icon{
-	width: 18px;
+	width: 12px;
 	vertical-align: middle;
 }
-.hdpa-filter-col {
-    display: flex;
+.hdpa-col-one {
+  float: left;
+  width: calc( 100% - 10px);
+  padding: 5px;
 }
-.hdpa-col-one .hdpa-filter-field{
-    flex: 100%;
+.hdpa-col-two {
+  float: left;
+  width: calc( 100% - 10px);
+  padding: 5px;
 }
-.hdpa-col-two .hdpa-filter-field{
-    flex: 50%;
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.hdpa-filter-age-text{
+  display: none;
 }
 .hdpa-filter-field{
-    display: flex;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  align-items: center;
 }
-.hdpa-filter-field label{
-    flex: 250px;
+.hdpa-filter-field > label {
+  text-align: right;
+  font-size: 14px;
+  font-weight: bold;
+  margin-right: 6px;
+  color: #555;
+  line-height: 1;
+  vertical-align: middle;
+  width: 80px;
 }
-.hdpa-filter-field input, 
-.hdpa-filter-field select{
-    width: 100%;
+.hdpa-filter-field input,
+.hdpa-filter-field select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+  font-size: 14px;
+  color: #333;
+  outline: none;
+}
+.hdpa-filter-field input:focus,
+.hdpa-filter-field select:focus, 
+.select2-container--default.select2-container--focus .select2-selection--multiple {
+  border-color: #007bff;
+}
+.hdpa-filter-field .select2-container {
+  width: 100% !important;
+}
+.hdpa-filter-field .select2-selection__rendered{
+  font-size: 12px;
+}
+.hdpa-filter-field > div{
+  width: 64%;
+  display: inline-block;
+  vertical-align: middle;
+  transform: translate(0px, 5px);
+}
+.hdpa-filter-submit {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+.hdpa-filter-submit:hover {
+  background-color: #005bbd;
+}
+.hdpa-filter-age-text{
+  position: absolute;
+  top: 16px;
+  font-size: 14px;
+}
+.hdpa-filter-field-submit{
+  justify-content: center;
+}
+#select2-hdpa_filter_skills-results, 
+#select2-hdpa_filter_education-results{
+  font-size: 12px;
 }
 /* filter style end */
 
 /* rating style start */
-.rating-group {
-    display: inline-flex;
+.hdpa-rating{
+  float: left;
 }
-.rating__icon {
-    pointer-events: none;
+.hdpa-rating__icon--star-filled{
+  color: orange;
 }
-.rating__input {
-    position: absolute !important;
-    left: -9999px !important;
+.hdpa-rating label {
+  float: right;
+  position: relative;
+  cursor: pointer;
 }
-.rating__input--none {
-    display: none
+.hdpa-rating label:not(:first-of-type) {
+  padding-right: 2px;
 }
-.rating__label {
-    cursor: pointer;
-    padding: 0 0.1em;
-    font-size: 2rem;
+.hdpa-rating input {
+  display: none;
 }
-.rating__icon--star {
-    color: orange;
+.hdpa-rating label{
+  color: #aaa;
 }
-.rating__input:checked ~ .rating__label .rating__icon--star {
-    color: #ddd;
-}
-.rating-group:hover .rating__label .rating__icon--star {
-    color: orange;
-}
-.rating__input:hover ~ .rating__label .rating__icon--star {
-    color: #ddd;
+.hdpa-rating input:checked ~ label, .hdpa-rating:not(:checked) > label:hover, .hdpa-rating:not(:checked) > label:hover ~ label {
+  color: orange;
 }
 /* rating style end */
+
+/* datatable style start */
+.hdpa-profile-list-table{
+  width: 100%;
+  margin-top: 10px;
+}
+.hdpa-datatable {
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+}
+.hdpa-datatable thead th {
+  background-color: #333333;
+  color: #ffffff;
+  padding: 10px;
+  text-align: left;
+  text-transform: uppercase;
+}
+.hdpa-datatable tbody td {
+  background-color: #f2f2f2;
+  color: #333333;
+  padding: 10px;
+  border-bottom: 1px solid #e6e6e6;
+}
+.hdpa-datatable tbody tr:hover td {
+  background-color: #e0e0e0;
+  cursor: pointer;
+}
+.hdpa-datatable tbody tr:first-child td {
+  border-top: 1px solid #e6e6e6;
+}
+.hdpa-datatable tbody tr:last-child td {
+  border-bottom: none;
+}
+.hdpa-datatable tbody td:first-child {
+  font-weight: bold;
+  padding-left: 20px;
+}
+/* datatable style end */
+
+@media only screen and (min-width: 1025px) {
+  .hdpa-col-two {
+    width: calc( 50% - 10px);
+  }
+  .hdpa-filter-field-ratings{
+    margin-top: 9px;
+  }
+}

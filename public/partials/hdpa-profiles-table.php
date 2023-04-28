@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 ?>
 
-<table class="hdpa-profile-table">
+<table class="hdpa-profile-table hdpa-datatable">
 	<thead>
 		<tr>
 			<th><?php esc_html_e( 'No.', 'hdpa' ); ?></th>
