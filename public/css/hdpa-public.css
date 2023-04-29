@@ -111,6 +111,9 @@
 #select2-hdpa_filter_education-results{
   font-size: 12px;
 }
+.select2-dropdown--below{
+  margin-top: 30px;
+}
 /* filter style end */
 
 /* rating style start */
@@ -205,15 +208,15 @@ div.dataTables_processing>div:last-child{
 /* media queries */
 @media only screen and (min-width: 1025px) {
   .hdpa-col-two {
-	width: calc( 50% - 10px);
+    width: calc( 50% - 10px);
   }
   .hdpa-filter-field-ratings{
-	margin-top: 9px;
+    margin-top: 9px;
   }
 }
 
 @media only screen and (max-width: 1025px) {
   .hdpa-prfile-table-wrap{
-	overflow-x: auto;
+    overflow-x: auto;
   }
 }
