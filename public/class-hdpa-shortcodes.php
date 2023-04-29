@@ -18,7 +18,6 @@
  */
 class Hdpa_Shortcodes {
 
-
 	/**
 	 * The ID of this plugin.
 	 *
@@ -60,6 +59,7 @@ class Hdpa_Shortcodes {
 
 		ob_start();
 
+		// include profile listing template.
 		include HDPA_PUBLIC_TEMPLATE_PATH . 'hdpa-profiles-list.php';
 
 		return ob_get_clean();

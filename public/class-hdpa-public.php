@@ -12,9 +12,6 @@
 /**
  * The public-facing functionality of the plugin.
  *
- * Defines the plugin name, version, and two examples hooks for how to
- * enqueue the public-facing stylesheet and JavaScript.
- *
  * @package    Himanshu_Dhakan_Practical_Assignment
  * @subpackage Himanshu_Dhakan_Practical_Assignment/public
  * @author     Himanshu Dhakan <himanshudhakan9@gmail.com>
@@ -78,24 +75,25 @@ class Hdpa_Public {
 	 */
 	public function hdpa_enqueue_scripts() {
 
-		// enqueue the dashicons style
-		wp_enqueue_style('dashicons');
+		// enqueue the dashicons style.
+		wp_enqueue_style( 'dashicons' );
 
-		// enqueue the datatables scripts
+		// enqueue the datatables scripts.
 		wp_enqueue_script( 'hdpa-datatables-script', HDPA_ASSE_DIR_URL . 'js/DataTables/jquery.dataTables.min.js', array( 'jquery' ), HDPA_VERSION, true );
 		wp_enqueue_style( 'hdpa-datatables-style', HDPA_ASSE_DIR_URL . 'css/DataTables/jquery.dataTables.min.css', array(), HDPA_VERSION );
 
-		// enqueue the datatables scripts
+		// enqueue the datatables scripts.
 		wp_enqueue_script( 'hdpa-select2-script', HDPA_ASSE_DIR_URL . 'js/select2/select2.min.js', array( 'jquery' ), HDPA_VERSION, true );
 		wp_enqueue_style( 'hdpa-select2-style', HDPA_ASSE_DIR_URL . 'css/select2/select2.min.css', array(), HDPA_VERSION );
 
-		// enqueue the plugin public script
+		// enqueue the plugin public script.
 		wp_enqueue_script( 'hdpa-public-script', HDPA_PUBLIC_DIR_URL . 'js/hdpa-public.js', array( 'jquery' ), HDPA_VERSION, true );
 		wp_enqueue_style( 'hdpa-public-style', HDPA_PUBLIC_DIR_URL . 'css/hdpa-public.css', array(), HDPA_VERSION );
 
-		// localize the plugin public object
+		// localize the plugin public object.
 		$hdpa_public_obj = array(
 			'ajaxurl' => admin_url( 'admin-ajax.php' ),
+			'nonce'   => wp_create_nonce( 'ajax-nonce' ),
 		);
 
 		wp_localize_script( 'hdpa-public-script', 'hdpa_public_obj', $hdpa_public_obj );
@@ -111,15 +109,27 @@ class Hdpa_Public {
 
 		$response = array();
 
-		$tb_args = hdpa_sanitize_text_field( $_POST );
+		if ( ! isset( $_POST['nonce'] ) ) {
+			return;
+		}
+
+		// Verify the nonce.
+		$nonce = hdpa_sanitize_text_field( $_POST['nonce'] );
+		if ( ! wp_verify_nonce( $nonce, 'ajax-nonce' ) ) {
+			return;
+		}
+
+		$tb_args       = hdpa_sanitize_text_field( $_POST );
 		$this->tb_args = $tb_args;
-		$draw = intval( $tb_args['draw'] );
-		
+		$draw          = intval( $tb_args['draw'] );
+
+		// Get all profile data.
 		$all_data = $this->hdpa_filter_profile_get_data();
 
 		$response['draw'] = $draw;
-		$response = array_merge($response, $all_data);
+		$response         = array_merge( $response, $all_data );
 
+		// Send json respose to datatable.
 		wp_send_json( $response );
 
 	}
@@ -133,47 +143,51 @@ class Hdpa_Public {
 	public function hdpa_filter_profile_get_data() {
 
 		$all_data = $profiles = array();
+		// Prepare query args.
 		$this->hdpa_filter_profile_prepare_query();
-		$args = $this->args;
+		$args         = $this->args;
 		$get_profiles = new WP_Query( $args );
 
-		$totalRecords = $get_profiles->found_posts;
-		$counter = 1;
+		$total_records = $get_profiles->found_posts;
+		$counter       = 1;
 
+		// Set profile data.
 		if ( $get_profiles->have_posts() ) {
 			while ( $get_profiles->have_posts() ) {
-				
+
 				$get_profiles->the_post();
 				$profile_id = get_the_ID();
-				$meta_data = hdpa_get_profile_meta_data( $profile_id );
-				$name = get_the_title();
-				$heading = sprintf(
-					'<a class="hdpa-prfile-link" href="%s">%s</a>', 
+				$meta_data  = hdpa_get_profile_meta_data( $profile_id );
+				$name       = get_the_title();
+				$heading    = sprintf(
+					'<a class="hdpa-prfile-link" href="%s">%s</a>',
 					esc_url( get_permalink( $profile_id ) ),
 					$name
 				);
-				$age = hdpa_get_age_of_profile( $meta_data['dob'] );
-				
-				$ratings = str_repeat('<span class="rating__icon rating__icon--star hdpa-rating__icon--star-filled dashicons dashicons-star-filled"></span>', $meta_data['ratings']);
-				$ratings_html = sprintf('<div class="rating">%s</div>', $ratings);
+				$age        = hdpa_get_age_of_profile( $meta_data['dob'] );
 
-				$data = array(
-					'no' => $counter,
-					'name' => $heading,
-					'age' => $age,
-					'experience' => $meta_data['experience'],
+				$ratings      = str_repeat( '<span class="rating__icon rating__icon--star hdpa-rating__icon--star-filled dashicons dashicons-star-filled"></span>', $meta_data['ratings'] );
+				$ratings_html = sprintf( '<div class="rating">%s</div>', $ratings );
+
+				$data       = array(
+					'no'             => $counter,
+					'name'           => $heading,
+					'age'            => $age,
+					'experience'     => $meta_data['experience'],
 					'completed_jobs' => $meta_data['completed_jobs'],
-					'ratings' => $ratings_html,
+					'ratings'        => $ratings_html,
 				);
 				$profiles[] = $data;
 				$counter++;
 
 			}
 		}
+		wp_reset_query();
 
-		$all_data['iTotalRecords'] = $totalRecords;
-		$all_data['iTotalDisplayRecords'] = $totalRecords;
-		$all_data['data'] = $profiles;
+		// Set datatable args.
+		$all_data['iTotalRecords']        = $total_records;
+		$all_data['iTotalDisplayRecords'] = $total_records;
+		$all_data['data']                 = $profiles;
 
 		return $all_data;
 
@@ -186,27 +200,30 @@ class Hdpa_Public {
 	 */
 	public function hdpa_filter_profile_prepare_query() {
 
-		$tb_args = $this->tb_args;
+		$tb_args        = $this->tb_args;
 		$posts_per_page = intval( $tb_args['length'] );
-		$offset = intval( $tb_args['start'] );
-		$order = ( 'asc' === $tb_args['order'][0]['dir'] ) ? 'ASC' : 'DESC';
+		$offset         = intval( $tb_args['start'] );
+		$order          = ( 'asc' === $tb_args['order'][0]['dir'] ) ? 'ASC' : 'DESC';
 
+		// Default query args.
 		$args = array(
-			'post_type' => 'profile',
+			'post_type'      => 'profile',
 			'posts_per_page' => $posts_per_page,
-    		'offset' => $offset,
-			'order' => $order,
-			'orderby' => 'title',
+			'offset'         => $offset,
+			'order'          => $order,
+			'orderby'        => 'title',
 		);
 
+		// Add search keyword arg.
 		if ( isset( $tb_args['filter']['keyword'] ) && ! empty( $tb_args['filter']['keyword'] ) ) {
-			
 			$args['s'] = $tb_args['filter']['keyword'];
-
 		}
 
+		// Set args property.
 		$this->args = $args;
+		// Prepare meta args.
 		$this->hdpa_filter_profile_prepare_meta_args();
+		// Prepare taxonomy args.
 		$this->hdpa_filter_profile_prepare_taxonomy_args();
 
 	}
@@ -218,53 +235,50 @@ class Hdpa_Public {
 	 */
 	public function hdpa_filter_profile_prepare_meta_args() {
 
-		$tb_args = $this->tb_args;
+		$tb_args   = $this->tb_args;
 		$meta_args = array();
 
+		// Add age meta arg.
 		if ( isset( $tb_args['filter']['age'] ) && ! empty( $tb_args['filter']['age'] ) ) {
-			
 			$meta_args[] = array(
-				'key' => '_profile_age',
-				'value' => $tb_args['filter']['age'],
+				'key'     => '_profile_age',
+				'value'   => $tb_args['filter']['age'],
 				'compare' => '<=',
-				'type' => 'numeric',
+				'type'    => 'numeric',
 			);
-
 		}
 
+		// Add rating meta arg.
 		if ( isset( $tb_args['filter']['ratings'] ) && ! empty( $tb_args['filter']['ratings'] ) ) {
-			
 			$meta_args[] = array(
-				'key' => '_profile_ratings',
-				'value' => $tb_args['filter']['ratings'],
+				'key'     => '_profile_ratings',
+				'value'   => $tb_args['filter']['ratings'],
 				'compare' => '>=',
-				'type' => 'numeric',
+				'type'    => 'numeric',
 			);
-
 		}
 
+		// Add jobs completed meta arg.
 		if ( isset( $tb_args['filter']['completed_jobs'] ) && ! empty( $tb_args['filter']['completed_jobs'] ) ) {
-			
 			$meta_args[] = array(
-				'key' => '_profile_completed_jobs',
-				'value' => $tb_args['filter']['completed_jobs'],
+				'key'     => '_profile_completed_jobs',
+				'value'   => $tb_args['filter']['completed_jobs'],
 				'compare' => '>=',
-				'type' => 'numeric',
+				'type'    => 'numeric',
 			);
-
 		}
 
+		// Add experience meta arg.
 		if ( isset( $tb_args['filter']['experience'] ) && ! empty( $tb_args['filter']['experience'] ) ) {
-			
 			$meta_args[] = array(
-				'key' => '_profile_experience',
-				'value' => $tb_args['filter']['experience'],
+				'key'     => '_profile_experience',
+				'value'   => $tb_args['filter']['experience'],
 				'compare' => '>=',
-				'type' => 'numeric',
+				'type'    => 'numeric',
 			);
-
 		}
 
+		// Add all meta arg.
 		if ( ! empty( $meta_args ) ) {
 			$this->args['meta_query'] = $meta_args;
 		}
@@ -278,31 +292,30 @@ class Hdpa_Public {
 	 */
 	public function hdpa_filter_profile_prepare_taxonomy_args() {
 
-		$tb_args = $this->tb_args;
+		$tb_args  = $this->tb_args;
 		$tax_args = array();
 
+		// Add skills taxonomy arg.
 		if ( isset( $tb_args['filter']['skills'] ) && ! empty( $tb_args['filter']['skills'] ) ) {
-			
 			$tax_args[] = array(
 				'taxonomy' => 'skills',
-				'field' => 'term_id',
-				'terms' => $tb_args['filter']['skills'],
+				'field'    => 'term_id',
+				'terms'    => $tb_args['filter']['skills'],
 				'operator' => 'IN',
 			);
-
 		}
 
+		// Add education taxonomy arg.
 		if ( isset( $tb_args['filter']['education'] ) && ! empty( $tb_args['filter']['education'] ) ) {
-			
 			$tax_args[] = array(
 				'taxonomy' => 'education',
-				'field' => 'term_id',
-				'terms' => $tb_args['filter']['education'],
+				'field'    => 'term_id',
+				'terms'    => $tb_args['filter']['education'],
 				'operator' => 'IN',
 			);
-
 		}
 
+		// Add all taxonomy arg.
 		if ( ! empty( $tax_args ) ) {
 			$this->args['tax_query'] = $tax_args;
 		}

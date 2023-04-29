@@ -15,8 +15,7 @@
 /**
  * The core plugin class.
  *
- * This is used to define internationalization, admin-specific hooks, and
- * public-facing site hooks.
+ * This is used to define internationalization.
  *
  * Also maintains the unique identifier of this plugin as well as the current
  * version of the plugin.
@@ -152,9 +151,7 @@ class Himanshu_Dhakan_Practical_Assignment {
 	private function define_hooks() {
 
 		if ( ! empty( $this->classes ) ) {
-
 			foreach ( $this->classes as $key => $object ) {
-
 				if ( method_exists( $object, 'add_hooks' ) ) {
 					$object->add_hooks();
 				}

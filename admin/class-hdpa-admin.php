@@ -73,16 +73,17 @@ class Hdpa_Admin {
 	 */
 	public function hdpa_enqueue_scripts( $hook_suffix ) {
 
-		// Current post type
+		// Current post type.
 		$post_type = get_post_type();
 
-		// register the plugin admin script
+		// register the plugin admin script.
 		wp_register_script( 'hdpa-admin-script', HDPA_ADMIN_DIR_URL . 'js/hdpa-admin.js', array( 'jquery' ), HDPA_VERSION, true );
+		wp_register_style( 'hdpa-admin-style', HDPA_ADMIN_DIR_URL . 'css/hdpa-admin.css', array(), HDPA_VERSION );
 
-		// register the jquery ui style
+		// register the jquery ui style.
 		wp_register_style( 'hdpa-jquery-ui', HDPA_ASSE_DIR_URL . 'css/jquery-ui/jquery-ui.css', array(), HDPA_VERSION );
 
-		// Check if current screen is of the plugin
+		// Check if current screen is of the plugin.
 		if ( in_array( $post_type, $this->allowed_post_types, true ) ) {
 
 			$hdpa_admin_obj = array(
@@ -90,6 +91,7 @@ class Hdpa_Admin {
 			);
 
 			wp_enqueue_style( 'hdpa-jquery-ui' );
+			wp_enqueue_style( 'hdpa-admin-style' );
 
 			wp_enqueue_script( 'jquery-ui-datepicker' );
 			wp_enqueue_script( 'hdpa-admin-script' );
@@ -129,7 +131,8 @@ class Hdpa_Admin {
 
 		global $profile_id;
 		$profile_id = $post->ID;
-		
+
+		// Include metabox view.
 		include HDPA_ADMIN_TEMPLATE_PATH . 'metaboxes/hdpa-metabox-profile.php';
 
 	}
@@ -147,6 +150,7 @@ class Hdpa_Admin {
 			return;
 		}
 
+		// Verify the nonce.
 		$nonce = hdpa_sanitize_text_field( $_POST['hdpa_profile_meta_nonce'] );
 		if ( ! wp_verify_nonce( $nonce, 'hdpa_profile_meta' ) ) {
 			return;
@@ -160,16 +164,17 @@ class Hdpa_Admin {
 
 			$data = hdpa_sanitize_text_field( $_POST['profile_additional_data'] );
 
+			// Save all meta data.
 			foreach ( $data as $dkey => $value ) {
 				$meta_key = sprintf( '_profile_%s', $dkey );
 				update_post_meta( $profile_id, $meta_key, $value );
 			}
 
+			// Save age by dob.
 			if ( ! empty( $data['dob'] ) ) {
 				$age = hdpa_get_age_of_profile( $data['dob'] );
 				update_post_meta( $profile_id, '_profile_age', $age );
 			}
-			
 		}
 
 	}

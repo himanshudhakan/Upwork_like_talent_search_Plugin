@@ -123,6 +123,7 @@ require HDPA_INC_DIR_PATH . 'class-himanshu-dhakan-practical-assignment.php';
 function run_hdpa() {
 	$plugin = new Himanshu_Dhakan_Practical_Assignment();
 	$plugin->run();
-
 }
+
+// Run the plugin.
 run_hdpa();

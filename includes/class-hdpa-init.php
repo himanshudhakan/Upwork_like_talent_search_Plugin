@@ -44,11 +44,11 @@ class Hdpa_Init {
 		);
 
 		$args = array(
-			'labels'              => $labels,
-			'public'              => true,
-			'supports'            => array( 'title' ),
-			'can_export'          => true,
-			'menu_position'       => null,
+			'labels'        => $labels,
+			'public'        => true,
+			'supports'      => array( 'title' ),
+			'can_export'    => true,
+			'menu_position' => null,
 		);
 
 		register_post_type( 'profile', $args );
