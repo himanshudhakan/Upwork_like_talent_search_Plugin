@@ -9,7 +9,7 @@
  * @wordpress-plugin
  * Plugin Name:       Himanshu Dhakan Practical Assignment
  * Plugin URI:        https://github.com/himanshudhakan/himanshu-dhakan-practical-assignment
- * Description:       This is a description of the plugin.
+ * Description:       The plugin allows users who are looking for profile to search and filter through the available profiles based on various criteria such as skills, education, age, No of jobs competed, and ratings. This plugin makes it easier for users to find the right profile for their project.
  * Version:           1.0.0
  * Author:            Himanshu Dhakan
  * Author URI:        https://github.com/himanshudhakan
