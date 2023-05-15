@@ -1,4 +1,4 @@
-=== Himanshu Dhakan Practical Assignment ===
+=== Upwork_like_talent_search_Plugin ===
 Contributors: himanshud
 Tags: profile list,profile list filter
 Requires at least: 5.1
